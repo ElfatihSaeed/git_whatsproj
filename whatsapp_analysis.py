@@ -3,7 +3,7 @@ import os,re
 def remove_prepostfix(text, prefix):
     return text[text.startswith(prefix) and len(prefix):len(text) - 1]
 
-file = open('/Users/elfatihsaeed/Documents/GoogleDrive/DataScience/PythonProg/WhatsApp Chat with إخواناً في الجنة متحابين❤️.txt', encoding="utf8")    
+file = open('WhatsApp_Chat.txt', encoding="utf8")    
 text = file.read()
 file.close()
 
@@ -16,7 +16,7 @@ for i in mo:
     count.setdefault(i,0)
     count[i] = count[i] + 1
 sortedCount = sorted(count.items(),key=lambda x:x[1],reverse=True)
-count_output = open('/Users/elfatihsaeed/Desktop/whatsappCount_akhwan.txt','w',encoding = 'utf-16')
+count_output = open('whatsapp_cunt.txt','w',encoding = 'utf-16')
 
 for i in sortedCount:
     line = i[0] + " : " + str(i[1])
@@ -24,4 +24,4 @@ for i in sortedCount:
     print(line)
 
 count_output.close()
-print('List writen to file whatsappCount_akhwan.txt')
+print('List writen to file whatsapp_count.txt')
