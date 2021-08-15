@@ -1,27 +1,29 @@
 import os,re
+from collections import Counter
 
-def remove_prepostfix(text, prefix):
-    return text[text.startswith(prefix) and len(prefix):len(text) - 1]
 
-file = open('WhatsApp_Chat.txt', encoding="utf8")    
-text = file.read()
+file = open('./Files/WhatsApp_Chat.txt', encoding="utf8")    
+chat_text = file.read()
 file.close()
 
-nameRegex = re.compile(r'M - .*?:')
-mo = nameRegex.findall(text)
+# Create a Regular Expression and extract member name or number from the chat text file
+members_regex = re.compile(r'M - .*?:')
+members = members_regex.findall(chat_text)
 
-count = {}
-for i in mo:
-    i = remove_prepostfix(i,'M - ')
-    count.setdefault(i,0)
-    count[i] = count[i] + 1
-sortedCount = sorted(count.items(),key=lambda x:x[1],reverse=True)
-count_output = open('whatsapp_cunt.txt','w',encoding = 'utf-16')
+# Clean the names and numbers prefeix and suffix
+members = [str(i).lstrip('M - ').rstrip(':') for i in members]
 
-for i in sortedCount:
-    line = i[0] + " : " + str(i[1])
+# Count the repetition for each member
+members_count = Counter(members)
+
+
+# Print to a file list of members with number of repetition ordered descendingly
+count_output = open('./Files/whatsapp_count.txt','w',encoding = 'utf-16')
+
+for member,count in members_count.most_common():
+    line = f'{member} : {count}'
     count_output.write(line + '\n')
     print(line)
 
 count_output.close()
-print('List writen to file whatsapp_count.txt')
+print('List writen to ./Files/file whatsapp_count.txt')
